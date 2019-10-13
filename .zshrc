@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/dvilchez/.oh-my-zsh
+export ZSH=${HOME}/.oh-my-zsh
 #export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # Set name of the theme to load.
@@ -62,6 +62,7 @@ export LANG=en_US.UTF-8
 source $ZSH/oh-my-zsh.sh
 
 # pure theme
+fpath+=("$HOME/.zsh/pure")
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -118,11 +119,11 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias vim='nvim'
 
 # nvm
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
 
 # fuck
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 # z
-. `brew --prefix`/etc/profile.d/z.sh
+# . `brew --prefix`/etc/profile.d/z.sh

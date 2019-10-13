@@ -62,28 +62,33 @@ if [ ! -d "${HOME}/.tmux/plugins" ]; then
 	git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git "${HOME}/.tmux/plugins/tmux-prefix-highlight"
 fi
 
-echo "==> Setting shell to zsh..."
-chsh -s /usr/bin/zsh
-
 if [ ! -d "${HOME}/dotfiles" ]; then
 	echo "==> Setting up dotfiles"
 	# the reason we dont't copy the files individually is, to easily push changes
 	# if needed
-	git clone --recursive https://github.com/dvilchez/dotfiles.git /home/linux/dotfiles
+	git clone --recurse-submodules https://github.com/dvilchez/dotfiles.git /home/linux/dotfiles
 
 	cd "${HOME}/dotfiles"
 	git remote set-url origin git@github.com:dvilchez/dotfiles.git
+fi
 
+if [ ! -f "${HOME}/.zshrc" ]; then
 	# ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
-	ln -sfn $(pwd)/zshrc "${HOME}/.zshrc"
-	ln -sfn $(pwd)/.oh-my-zsh "${HOME}/.oh-my-zsh"
+	ln -sfn ${HOME}/dotfiles/.zshrc "${HOME}/.zshrc"
+	ln -sfn ${HOME}/dotfiles/.oh-my-zsh "${HOME}/.oh-my-zsh"
 	# ln -sfn $(pwd)/tmuxconf "${HOME}/.tmux.conf"
 	# ln -sfn $(pwd)/tigrc "${HOME}/.tigrc"
 	# ln -sfn $(pwd)/git-prompt.sh "${HOME}/.git-prompt.sh"
 	# ln -sfn $(pwd)/gitconfig "${HOME}/.gitconfig"
 	# ln -sfn $(pwd)/agignore "${HOME}/.agignore"
 	# ln -sfn $(pwd)/sshconfig "${HOME}/.ssh/config"
+	mkdir -p "$HOME/.zsh"
+	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 fi
 
+echo "==> Setting shell to zsh..."
+sudo sed -i 's/required/sufficient/g' /etc/pam.d/chsh
+chsh -s /usr/bin/zsh
+# echo "chsh -s /usr/bin/zsh"
 echo ""
 echo "==> Done!"
