@@ -17,6 +17,7 @@ sudo apt-get install -qq \
 	build-essential \
 	curl \
 	git \
+	rlwrap \
 	htop \
 	man \
 	mosh \
@@ -34,10 +35,22 @@ sudo apt-get install -qq \
 	zsh \
 	--no-install-recommends \
 
-	rm -rf /var/lib/apt/lists/*
+	sudo rm -rf /var/lib/apt/lists/*
 
 git config --global user.email "dvilchez@xuaps.com"
 git config --global user.name "dvilchez"
+
+if [ ! -f "${HOME}/install_nvm.sh" ]; then
+	echo " ==> Installing nvm"
+	sudo apt-get update
+	sudo apt-get install build-essential libssl-dev
+
+	curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh -o install_nvm.sh
+	bash install_nvm.sh
+	export NVM_DIR="/home/linux/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+	nvm install stable
+fi
 
 if [ ! -d "${HOME}/.fzf" ]; then
 	echo " ==> Installing fzf"

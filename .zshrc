@@ -119,6 +119,8 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias vim='nvim'
 
 # nvm
+export NVM_DIR="/home/linux/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
 
