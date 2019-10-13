@@ -32,19 +32,19 @@ sudo apt-get install -qq \
 	unzip \
 	wget \
 	zsh \
-	—no-install-recommends \
+	--no-install-recommends \
 
 	rm -rf /var/lib/apt/lists/*
 
-git config —global user.email "dvilchez@xuaps.com"
-git config —global user.name "dvilchez"
+git config --global user.email "dvilchez@xuaps.com"
+git config --global user.name "dvilchez"
 
 if [ ! -d "${HOME}/.fzf" ]; then
 	echo " ==> Installing fzf"
 	git clone https://github.com/junegunn/fzf "${HOME}/.fzf"
 	pushd "${HOME}/.fzf"
 	git remote set-url origin git@github.com:junegunn/fzf.git 
-	${HOME}/.fzf/install —bin —64 —no-bash —no-zsh —no-fish
+	${HOME}/.fzf/install --bin --64 --no-bash --no-zsh --no-fish
 	popd
 fi
 
@@ -69,7 +69,7 @@ if [ ! -d "${HOME}/dotfiles" ]; then
 	echo "==> Setting up dotfiles"
 	# the reason we dont't copy the files individually is, to easily push changes
 	# if needed
-	git clone —recursive https://github.com/dvilchez/dotfiles.git /home/linux/dotfiles
+	git clone --recursive https://github.com/dvilchez/dotfiles.git /home/linux/dotfiles
 
 	cd "${HOME}/dotfiles"
 	git remote set-url origin git@github.com:dvilchez/dotfiles.git
