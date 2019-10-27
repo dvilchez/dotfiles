@@ -21,21 +21,27 @@ sudo apt-get install -qq \
 	htop \
 	man \
 	mosh \
-	python \
-	python3 \
-	python3-flake8 \
-	python3-pip \
-	python3-setuptools \
-	python3-venv \
-	python3-wheel \
 	neovim \
 	tmux \
 	unzip \
 	wget \
 	zsh \
-	--no-install-recommends \
+	libssl-dev \
+	zlib1g-dev \
+	libbz2-dev \
+	libreadline-dev \
+	libsqlite3-dev \
+	llvm \
+	libncurses5-dev \
+	xz-utils \
+	tk-dev \
+	libxml2-dev \
+	libxmlsec1-dev \
+	libffi-dev \
+	liblzma-dev \
+	--no-install-recommends 
 
-	sudo rm -rf /var/lib/apt/lists/*
+sudo rm -rf /var/lib/apt/lists/*
 
 git config --global user.email "dvilchez@xuaps.com"
 git config --global user.name "dvilchez"
@@ -50,6 +56,12 @@ if [ ! -f "${HOME}/install_nvm.sh" ]; then
 	export NVM_DIR="/home/linux/.nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 	nvm install stable
+fi
+
+if [ ! -d "${HOME}/.pyenv" ]; then
+	echo " ==> Installing pyenv"
+	git clone https://github.com/pyenv/pyenv.git "${HOME}/.pyenv"
+	git clone https://github.com/pyenv/pyenv-virtualenv.git "${HOME}/.pyenv/plugins/pyenv-virtualenv"
 fi
 
 if [ ! -d "${HOME}/.fzf" ]; then
