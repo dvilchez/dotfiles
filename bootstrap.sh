@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -13,49 +13,47 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
 	sudo apt-get upgrade -y
 fi
 
-sudo apt-get install -qq \
-	build-essential \
-	curl \
-	git \
-	rlwrap \
-	htop \
-	man \
-	mosh \
-	neovim \
-	tmux \
-	unzip \
-	wget \
-	zsh \
-	libssl-dev \
-	zlib1g-dev \
-	libbz2-dev \
-	libreadline-dev \
-	libsqlite3-dev \
-	llvm \
-	libncurses5-dev \
-	xz-utils \
-	tk-dev \
-	libxml2-dev \
-	libxmlsec1-dev \
-	libffi-dev \
-	liblzma-dev \
-	--no-install-recommends 
+if command -v apt-get 1>/dev/null 2>&1; then
+    sudo apt-get install -qq \
+        build-essential \
+        curl \
+        git \
+        rlwrap \
+        htop \
+        man \
+        mosh \
+        neovim \
+        tmux \
+        unzip \
+        wget \
+        zsh \
+        libssl-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        llvm \
+        libncurses5-dev \
+        xz-utils \
+        tk-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
+        libffi-dev \
+        liblzma-dev \
+        --no-install-recommends 
 
-sudo rm -rf /var/lib/apt/lists/*
+    sudo rm -rf /var/lib/apt/lists/*
+fi
 
-git config --global user.email "dvilchez@xuaps.com"
-git config --global user.name "dvilchez"
-
-if [ ! -f "${HOME}/install_nvm.sh" ]; then
+if [ ! -d "${HOME}/.nvm" ]; then
 	echo " ==> Installing nvm"
-	sudo apt-get update
-	sudo apt-get install build-essential libssl-dev
 
 	curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh -o install_nvm.sh
 	bash install_nvm.sh
-	export NVM_DIR="/home/linux/.nvm"
+	export NVM_DIR="${HOME}/.nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 	nvm install stable
+    rm install_nvm.sh
 fi
 
 if [ ! -d "${HOME}/.pyenv" ]; then
@@ -73,10 +71,14 @@ if [ ! -d "${HOME}/.fzf" ]; then
 	popd
 fi
 
-if [ ! -d "${HOME}/.zsh" ]; then
+if [ ! -f "${HOME}/.zshrc" ]; then
+	ln -sfn ${HOME}/dotfiles/.oh-my-zsh "${HOME}/.oh-my-zsh"
+	ln -sfn ${HOME}/dotfiles/.zshrc "${HOME}/.zshrc"
+	mkdir -p "$HOME/.zsh"
 	echo " ==> Installing zsh plugins"
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${HOME}/.zsh/zsh-syntax-highlighting"
 	git clone https://github.com/zsh-users/zsh-autosuggestions "${HOME}/.zsh/zsh-autosuggestions"
+	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 fi
 
 if [ ! -d "${HOME}/.tmux/plugins" ]; then
@@ -91,24 +93,22 @@ if [ ! -d "${HOME}/dotfiles" ]; then
 	echo "==> Setting up dotfiles"
 	# the reason we dont't copy the files individually is, to easily push changes
 	# if needed
-	git clone --recurse-submodules https://github.com/dvilchez/dotfiles.git /home/linux/dotfiles
+	git clone --recurse-submodules https://github.com/dvilchez/dotfiles.git ${HOME}/dotfiles
 
 	cd "${HOME}/dotfiles"
 	git remote set-url origin git@github.com:dvilchez/dotfiles.git
 fi
 
-if [ ! -f "${HOME}/.zshrc" ]; then
-	# ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
-	ln -sfn ${HOME}/dotfiles/.zshrc "${HOME}/.zshrc"
-	ln -sfn ${HOME}/dotfiles/.oh-my-zsh "${HOME}/.oh-my-zsh"
-	# ln -sfn $(pwd)/tmuxconf "${HOME}/.tmux.conf"
-	# ln -sfn $(pwd)/tigrc "${HOME}/.tigrc"
-	# ln -sfn $(pwd)/git-prompt.sh "${HOME}/.git-prompt.sh"
-	# ln -sfn $(pwd)/gitconfig "${HOME}/.gitconfig"
-	# ln -sfn $(pwd)/agignore "${HOME}/.agignore"
-	# ln -sfn $(pwd)/sshconfig "${HOME}/.ssh/config"
-	mkdir -p "$HOME/.zsh"
-	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+if [ ! -f "${HOME}/.gitconfig" ]; then
+    ln -sfn ${HOME}/dotfiles/.gitconfig "${HOME}/.gitconfig"
+fi
+
+if [ ! -f "${HOME}/.gitignore_global" ]; then
+    ln -sfn ${HOME}/dotfiles/.gitignore_global "${HOME}/.gitignore_global"
+fi
+
+if [ ! -f "${HOME}/.gitmessage" ]; then
+    ln -sfn ${HOME}/dotfiles/.gitmessage "${HOME}/.gitmessage"
 fi
 
 echo "==> Setting shell to zsh..."
