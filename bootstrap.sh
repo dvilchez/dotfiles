@@ -111,6 +111,12 @@ if [ ! -f "${HOME}/.gitmessage" ]; then
     ln -sfn ${HOME}/dotfiles/.gitmessage "${HOME}/.gitmessage"
 fi
 
+if [ ! -f "${HOME}/.config" ]; then
+    ln -sfn ${HOME}/dotfiles/.config/nvim "${HOME}/.config/"
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+fi
+
 echo "==> Setting shell to zsh..."
 sudo sed -i 's/required/sufficient/g' /etc/pam.d/chsh
 chsh -s /usr/bin/zsh
