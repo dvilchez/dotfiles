@@ -34,7 +34,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python'] 
+  let g:coc_global_extensions = ['coc-coverage', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python'] 
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
 " Initialize plugin system
@@ -54,8 +54,8 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-nnoremap <C-S-b> :Buffers<cr>
-nnoremap <C-S-s> :BLines<cr>
+nnoremap <C-s> :Buffers<cr>
+nnoremap <C-l> :BLines<cr>
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " resize pane
@@ -68,8 +68,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> <C-S-r> <Plug>(coc-codeaction)
-nmap <silent> <C-S-m> <Plug>(coc-rename)
+nmap <silent> <C-r> <Plug>(coc-codeaction)
+nmap <silent> <C-m> <Plug>(coc-rename)
 nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
 
