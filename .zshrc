@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
-export ANDROID_SDK_ROOT=/Users/dvilchez/Library/Android/sdk
+#export ANDROID_SDK_ROOT=/Users/dvilchez/Library/Android/sdk
 #export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # Set name of the theme to load.
@@ -51,7 +51,7 @@ ZSH_THEME=""
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx docker django pip python postgres)
+plugins=(git nvm osx docker pip python postgres)
 
 # User configuration
 # PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.4/bin/
@@ -122,8 +122,7 @@ alias vim='nvim'
 # nvm
 export NVM_SYMLINK_CURRENT=true
 export NVM_DIR="${HOME}/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # pyenv
 # export PYENV_ROOT="$HOME/.pyenv"
@@ -140,6 +139,8 @@ export NVM_DIR="${HOME}/.nvm"
 # z
 # . `brew --prefix`/etc/profile.d/z.sh
 
-export REVIEW_BASE=stable
+export REVIEW_BASE=master
+export PATH="${HOME}/.bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+source ~/.env

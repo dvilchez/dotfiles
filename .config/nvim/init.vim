@@ -71,6 +71,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <C-S-r> <Plug>(coc-codeaction)
 nmap <silent> <C-S-m> <Plug>(coc-rename)
 nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
 
 " git
 map <F2> :!git shortlog -s -n %<cr>
