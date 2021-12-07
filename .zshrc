@@ -51,7 +51,7 @@ ZSH_THEME=""
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm osx docker pip python postgres)
+plugins=(git nvm macos docker pip python postgres)
 
 # User configuration
 # PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.4/bin/
@@ -139,8 +139,9 @@ export NVM_DIR="${HOME}/.nvm"
 # z
 # . `brew --prefix`/etc/profile.d/z.sh
 
-export REVIEW_BASE=master
+export REVIEW_BASE="origin/master"
 export PATH="${HOME}/.bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 source ~/.env
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
