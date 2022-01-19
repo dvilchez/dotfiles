@@ -25,6 +25,8 @@ set spelllang=en,es  " Corregir palabras usando diccionarios en inglés y españ
 set termguicolors  " Activa true colors en la terminal
 set background=light  " Fondo del tema: light o dark
 
+set wrap
+
 " Plugin
 call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-surround'
@@ -37,6 +39,7 @@ call plug#begin('~/.config/nvim/plugged')
   let g:coc_global_extensions = ['coc-coverage', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python'] 
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
+  Plug 'mtth/scratch.vim'
 " Initialize plugin system
 call plug#end()
 
@@ -46,6 +49,9 @@ if (has("termguicolors"))
 endif
 syntax enable
 colorscheme dracula
+
+" scratch
+let g:scratch_persistence_file = "~/scratch"
 
 " search
 nnoremap <C-p> :Files<CR>
