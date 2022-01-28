@@ -3,7 +3,7 @@ set title  " Muestra el nombre del archivo en la ventana de la terminal
 set number  " Muestra los números de las líneas
 set mouse=a  " Permite la integración del mouse (seleccionar texto, mover el cursor)
 
-set nowrap  " No dividir la línea si es muy larga
+" set nowrap  " No dividir la línea si es muy larga
 
 set cursorline  " Resalta la línea actual
 set colorcolumn=120  " Muestra la columna límite a 120 caracteres
@@ -29,6 +29,7 @@ set wrap
 
 " Plugin
 call plug#begin('~/.config/nvim/plugged')
+  Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
   Plug 'dracula/vim'
@@ -36,12 +37,19 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-coverage', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-python'] 
+  let g:coc_global_extensions = ['coc-coverage', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-pyright'] 
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
   Plug 'mtth/scratch.vim'
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
 " Initialize plugin system
 call plug#end()
+
+" scracth
+let g:scratch_persistence_file = "~/scratch"
 
 " theme
 if (has("termguicolors"))
@@ -78,6 +86,18 @@ nmap <silent> <C-t> <Plug>(coc-codeaction)
 nmap <silent> <C-m> <Plug>(coc-rename)
 nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
+
+" LanguageClient
+" https://github.com/haskell/haskell-ide-engine#coc
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+
 
 " git
 map <F2> :!git shortlog -s -n %<cr>

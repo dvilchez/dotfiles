@@ -10,5 +10,21 @@
   ],
   "python.jediEnabled": false,
   "prettier.trailingComma": "none",
-  "prettier.endOfLine": "auto"
+  "prettier.endOfLine": "auto",
+  "languageserver": {
+    "haskell": {
+      "command": "hie-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"],
+      "initializationOptions": {
+        "haskell": {}
+      }
+    }
+  }
 }
