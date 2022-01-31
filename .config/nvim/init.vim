@@ -60,7 +60,7 @@ colorscheme dracula
 
 " scratch
 let g:scratch_persistence_file = "~/scratch"
-
+let g:scratch_height = "30%"
 " search
 nnoremap <C-p> :Files<CR>
 let g:fzf_action = {
