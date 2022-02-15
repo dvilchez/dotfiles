@@ -45,6 +45,7 @@ call plug#begin('~/.config/nvim/plugged')
     \ 'branch': 'next',
     \ 'do': './install.sh'
     \ }
+  Plug 'github/copilot.vim'
 " Initialize plugin system
 call plug#end()
 
