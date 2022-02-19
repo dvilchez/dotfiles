@@ -1,4 +1,5 @@
 {
+  "coverage.uncoveredSign.text": "☂",
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",

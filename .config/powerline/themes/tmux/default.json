@@ -17,7 +17,7 @@
         }
       },
       {
-        "function": "powerline_taskwarrior.next_task",
+        "function": "powerline_taskwarrior.active_task",
         "priority": 70
       }
     ]

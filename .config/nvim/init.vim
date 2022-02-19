@@ -29,6 +29,7 @@ set wrap
 
 " Plugin
 call plug#begin('~/.config/nvim/plugged')
+  Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
@@ -106,3 +107,29 @@ map <F2> :!git shortlog -s -n %<cr>
 " Prettier 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 nnoremap <silent> K :call CocAction('doHover')<CR>
+
+" lightline
+function! LightlineCocCoverageStatus() abort
+  let status = get(g:, 'coc_coverage_lines_pct', '')
+  if empty(status)
+    return ''
+  endif
+
+  return '☂ ' . status . '% Lines Covered'
+endfunction
+
+let g:lightline = {
+  \ 'active': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'readonly', 'filename' ]
+  \   ],
+  \   'right':[
+  \     [ 'coccoverage', 'lineinfo', 'percent', 'cocstatus' ],
+  \     [ 'cocapollo' ]
+  \   ],
+  \ },
+  \ 'component_function': {
+  \   'coccoverage': 'LightlineCocCoverageStatus'
+  \ }
+\ }
