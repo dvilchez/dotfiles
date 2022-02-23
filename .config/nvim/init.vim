@@ -109,27 +109,7 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
 " lightline
-function! LightlineCocCoverageStatus() abort
-  let status = get(g:, 'coc_coverage_lines_pct', '')
-  if empty(status)
-    return ''
-  endif
-
-  return '☂ ' . status . '% Lines Covered'
-endfunction
-
-let g:lightline = {
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste' ],
-  \     [ 'readonly', 'filename' ]
-  \   ],
-  \   'right':[
-  \     [ 'coccoverage', 'lineinfo', 'percent', 'cocstatus' ],
-  \     [ 'cocapollo' ]
-  \   ],
-  \ },
-  \ 'component_function': {
-  \   'coccoverage': 'LightlineCocCoverageStatus'
-  \ }
-\ }
+"
+" copilot
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
