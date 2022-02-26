@@ -109,7 +109,11 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
 " lightline
-"
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+      \ }
+      \ }
 " copilot
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
