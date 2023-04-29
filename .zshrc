@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
+export HELIX_RUNTIME=/home/user-name/src/helix/runtime
+
 #export ANDROID_SDK_ROOT=/Users/dvilchez/Library/Android/sdk
 #export ANDROID_HOME=/usr/local/opt/android-sdk
 
@@ -51,7 +53,7 @@ ZSH_THEME=""
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm macos docker pip python postgres)
+plugins=(tmux git nvm docker pip python postgres zsh-autosuggestions)
 
 # User configuration
 # PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.4/bin/
@@ -139,9 +141,9 @@ export NVM_DIR="${HOME}/.nvm"
 # z
 # . `brew --prefix`/etc/profile.d/z.sh
 
-export REVIEW_BASE="origin/master"
-export PATH="${HOME}/.bin:$PATH"
+export REVIEW_BASE=master
+export PATH="${HOME}/.bin:${HOME}/.local/bin/:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-source ~/.env
 export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+source ~/.env
