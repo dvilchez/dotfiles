@@ -1,3 +1,5 @@
+local Util = require("lazyvim.util")
+
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -7,7 +9,7 @@ return {
         function()
           require("neo-tree.command").execute({
             toggle = true,
-            dir = require("lazy.core.config").options.root,
+            dir = Util.root(),
             reveal = true,
           })
         end,
