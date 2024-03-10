@@ -1,3 +1,7 @@
 .config
 Icon*
 .sync
+*.cache
+*.last-run
+*.crt
+*.merged-ca-bundle

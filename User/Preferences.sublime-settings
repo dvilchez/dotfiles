@@ -1,0 +1,9 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
+{
+	"font_size": 18,
+	"ignored_packages": [
+	],
+	"index_files": true,
+	"color_scheme": "Packages/Monokai++/themes/Monokai++.tmTheme",
+}

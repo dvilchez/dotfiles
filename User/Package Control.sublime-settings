@@ -1,0 +1,23 @@
+{
+	"bootstrapped": true,
+	"installed_packages":
+	[
+		"Git",
+		"GitHub Theme",
+		"LSP",
+		"LSP-copilot",
+		"LSP-typescript",
+		"Monokai - Spacegray",
+		"Monokai++",
+		"Origami",
+		"Package Control",
+		"Prettierd Format",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"Swift Next",
+		"Terminus",
+	],
+	"in_process_packages":
+	[
+	],
+}
