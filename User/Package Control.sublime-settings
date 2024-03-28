@@ -2,7 +2,6 @@
 	"bootstrapped": true,
 	"installed_packages":
 	[
-		"ExtendedTabSwitcher",
 		"Git",
 		"GitHub Theme",
 		"JsPrettier",
