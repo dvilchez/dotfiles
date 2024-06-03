@@ -1,0 +1,15 @@
+// Settings in here override those in "LSP-SourceKit/LSP-SourceKit.sublime-settings"
+{
+    "command": [
+        "xcrun",
+        "sourcekit-lsp",
+        "--scratch-path",
+        ".nativeBuild"
+    ],
+    "languages": [
+        {
+            "languageId": "swift",
+        }
+    ],
+    "enabled": true,
+}
