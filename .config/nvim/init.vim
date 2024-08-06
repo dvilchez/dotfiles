@@ -23,7 +23,7 @@ set smartcase  " No ignorar mayúsculas si la palabra a buscar contiene mayúscu
 set spelllang=en,es  " Corregir palabras usando diccionarios en inglés y español
 
 set termguicolors  " Activa true colors en la terminal
-set background=light  " Fondo del tema: light o dark
+set background=dark " Fondo del tema: light o dark
 
 set wrap
 
@@ -43,8 +43,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'github/copilot.vim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
-  Plug 'almo7aya/openingh.nvim',
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'f-person/git-blame.nvim'
+  Plug 'almo7aya/openingh.nvim'
 " Initialize plugin system
 call plug#end()
 
@@ -150,6 +151,7 @@ colorscheme dracula
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-s> <cmd>Telescope buffers<cr>
 nnoremap <C-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <C-d> :Telescope grep_string search=<C-R><C-W><CR>
 
 " copilot
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
