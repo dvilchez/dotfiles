@@ -46,6 +46,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'f-person/git-blame.nvim'
   Plug 'almo7aya/openingh.nvim'
+  Plug 'preservim/nerdtree'
 " Initialize plugin system
 call plug#end()
 
@@ -157,3 +158,8 @@ nnoremap <C-d> :Telescope grep_string search=<C-R><C-W><CR>
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
+" NERDTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
