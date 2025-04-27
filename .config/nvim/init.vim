@@ -33,12 +33,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'dracula/vim'
   Plug 'ryanoasis/vim-devicons'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'L3MON4D3/LuaSnip'
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'neovim/nvim-lspconfig'
   Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
   Plug 'github/copilot.vim'
   Plug 'nvim-lua/plenary.nvim'
@@ -52,13 +51,39 @@ call plug#end()
 
 "lsp
 lua <<EOF
-local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr,})
-end)
+-- Reserve a space in the gutter
+-- This will avoid an annoying layout shift in the screen
+vim.opt.signcolumn = 'yes'
+
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+  'force',
+  lspconfig_defaults.capabilities,
+  require('cmp_nvim_lsp').default_capabilities()
+)
+
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'LSP actions',
+  callback = function(event)
+    local opts = {buffer = event.buf}
+
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+    vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+  end,
+})
 
 local cmp = require('cmp')
 
@@ -91,21 +116,6 @@ cmp.setup({
       require('luasnip').lsp_expand(args.body)
     end,
   },
-})
-
-require('lspconfig').sourcekit.setup({
-cmd = { "sourcekit-lsp" , "--scratch-path", ".nativeBuild" },
-	root_dir = function(filename)
-		if string.match(filename, "Crossplatform") or string.match(filename, "CommonSwift") then
-			return "/Users/david/wks/GoodNotes-5/Crossplatform"
-		else
-			return lspconfig.util.root_pattern("Package.swift")(filename)
-		end
-	end,
-  single_file_support = false,
-	on_attach = on_attach,
-	capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  on_attach = lsp_zero.on_attach,
 })
 
 -- to learn how to use mason.nvim

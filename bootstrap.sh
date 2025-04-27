@@ -1,50 +1,10 @@
 #!/bin/bash
 
-set -e
-
-export DEBIAN_FRONTEND=noninteractive
-
-UPGRADE_PACKAGES=${1:-none}
-
-if [ "${UPGRADE_PACKAGES}" != "none" ]; then
-	echo "==> Updating and upgrading packages ..."
-
-	sudo apt-get update
-	sudo apt-get upgrade -y
-fi
-
-if command -v apt-get 1>/dev/null 2>&1; then
-    sudo apt-get install -qq \
-        build-essential \
-        curl \
-        git \
-        rlwrap \
-        htop \
-        man \
-        mosh \
-        neovim \
-        tmux \
-        unzip \
-        wget \
-        zsh \
-        libssl-dev \
-        zlib1g-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev \
-        llvm \
-        libncurses5-dev \
-        xz-utils \
-        tk-dev \
-        libxml2-dev \
-        libxmlsec1-dev \
-        libffi-dev \
-        liblzma-dev \
-        --no-install-recommends 
-
-    sudo rm -rf /var/lib/apt/lists/*
-fi
-
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo >> /Users/dvilchez/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/dvilchez/.zprofilea
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew install rlwrap
 if [ ! -d "${HOME}/.nvm" ]; then
 	echo " ==> Installing nvm"
 
@@ -54,12 +14,6 @@ if [ ! -d "${HOME}/.nvm" ]; then
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 	nvm install stable
     rm install_nvm.sh
-fi
-
-if [ ! -d "${HOME}/.pyenv" ]; then
-	echo " ==> Installing pyenv"
-	git clone https://github.com/pyenv/pyenv.git "${HOME}/.pyenv"
-	git clone https://github.com/pyenv/pyenv-virtualenv.git "${HOME}/.pyenv/plugins/pyenv-virtualenv"
 fi
 
 if [ ! -d "${HOME}/.fzf" ]; then
@@ -72,12 +26,13 @@ if [ ! -d "${HOME}/.fzf" ]; then
 fi
 
 if [ ! -f "${HOME}/.zshrc" ]; then
+	brew install zsh
 	ln -sfn ${HOME}/dotfiles/.oh-my-zsh "${HOME}/.oh-my-zsh"
 	ln -sfn ${HOME}/dotfiles/.zshrc "${HOME}/.zshrc"
 	mkdir -p "$HOME/.zsh"
 	echo " ==> Installing zsh plugins"
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${HOME}/.zsh/zsh-syntax-highlighting"
-	git clone https://github.com/zsh-users/zsh-autosuggestions "${HOME}/.zsh/zsh-autosuggestions"
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 	git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 fi
 
@@ -87,16 +42,6 @@ if [ ! -d "${HOME}/.tmux/plugins" ]; then
 	git clone https://github.com/tmux-plugins/tmux-open.git "${HOME}/.tmux/plugins/tmux-open"
 	git clone https://github.com/tmux-plugins/tmux-yank.git "${HOME}/.tmux/plugins/tmux-yank"
 	git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git "${HOME}/.tmux/plugins/tmux-prefix-highlight"
-fi
-
-if [ ! -d "${HOME}/dotfiles" ]; then
-	echo "==> Setting up dotfiles"
-	# the reason we dont't copy the files individually is, to easily push changes
-	# if needed
-	git clone --recurse-submodules https://github.com/dvilchez/dotfiles.git ${HOME}/dotfiles
-
-	cd "${HOME}/dotfiles"
-	git remote set-url origin git@github.com:dvilchez/dotfiles.git
 fi
 
 if [ ! -f "${HOME}/.gitconfig" ]; then
@@ -113,13 +58,11 @@ fi
 
 if [ ! -f "${HOME}/.config" ]; then
     ln -sfn ${HOME}/dotfiles/.config/nvim "${HOME}/.config/"
+    brew install nvim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
 echo "==> Setting shell to zsh..."
-sudo sed -i 's/required/sufficient/g' /etc/pam.d/chsh
-chsh -s /usr/bin/zsh
-# echo "chsh -s /usr/bin/zsh"
-echo ""
+chsh -s $(which zsh)
 echo "==> Done!"
