@@ -46,6 +46,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'f-person/git-blame.nvim'
   Plug 'almo7aya/openingh.nvim'
   Plug 'preservim/nerdtree'
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'tpope/vim-fugitive'
 " Initialize plugin system
 call plug#end()
 
@@ -160,6 +162,7 @@ syntax enable
 colorscheme dracula
 
 " search
+nnoremap <C-a> <cmd>Telescope live_grep<cr>
 nnoremap <C-p> <cmd>Telescope find_files<cr>
 nnoremap <C-s> <cmd>Telescope buffers<cr>
 nnoremap <C-l> <cmd>Telescope current_buffer_fuzzy_find<cr>
